@@ -1,3 +1,29 @@
-Using the web component:
+<h4>Using the web component from source code</h4>
 
-<app-text-form></app-text-form>
+<p>Value: {{textForm1}}</p>
+<app-text-form id="textForm1" [initialValue]="'text form 1'" (saved)="textFormSaved1($event)">
+	<p slot="header">My Header</p>
+</app-text-form>
+
+<hr>
+
+<h4>Using the web component</h4>
+
+<p>Value: {{textForm2}}</p>
+<text-form id="textForm2" initial-value="text form 2"></text-form>
+
+<hr>
+
+<h4>Using the Web component directive wrapper and Angular Reactive Forms (requires app.module > imports > ReactiveFormsModule)</h4>
+<p>Value: {{textForm3.value}}</p>
+<p>Valid (min value 2): {{textForm3.valid}}</p>
+<text-form id="textForm3" app-web-component-wrapper [formControl]="textForm3"></text-form>
+
+<hr>
+
+<!-- <app-web-component-wrapped></app-web-component-wrapped> -->
+<h4>Angular Template Forms Component using Web Component (requires app.module > imports > FormsModule)</h4>
+<p>Value: {{textForm4}}</p>
+<text-form id="textForm4"  [(ngModel)]="textForm4">
+	<div slot="header">My Custom Header</div>
+</text-form>

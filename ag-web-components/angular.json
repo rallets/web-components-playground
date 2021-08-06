@@ -139,7 +139,9 @@
             "styles": [
               "projects/usage-as-ag-component/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+				"usage-vanilla/dist-static/main.js"
+			]
           },
           "configurations": {
             "production": {

@@ -7,7 +7,7 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Testing the Web Component</title>
 	<base href="/">
-	
+
 	<link rel="stylesheet" href="./dist-static/styles.css">
 
 	<script src="./dist-static/polyfills.js"></script>
@@ -16,8 +16,29 @@
 	<script src="./dist-static/main.js"></script>
 </head>
 
+<style>
+	#ctrl::part(header) {
+		font-size: 32px;
+	}
+	#ctrl::part(header):hover {
+		color: blue;
+	}
+	#ctrl::part(text-style) {
+		color: green;
+	}
+</style>
 <body>
-	<text-form></text-form>
+	<text-form id="ctrl" initial-value="initial value">
+		<div slot="header">My Custom Header</div>
+	</text-form>
+
+	<script>
+		const $ctrl = document.getElementById("ctrl");
+
+		$ctrl.addEventListener("saved", (event) => {
+			console.log("Event received", event.type, event.detail);
+		});
+	</script>
 </body>
 
 </html>

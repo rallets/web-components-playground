@@ -70,6 +70,48 @@ export class AppModule implements DoBootstrap {
 
 `ng serve WebComponents`
 
+## Enabling support for `slot`
+
+- to be able to customize the web component behaviour via named `slot`, we need to switch the component's encapsulation to ShadowDom.
+Nb. If not, the `slot` content will be appended to the web component.
+
+`encapsulation: ViewEncapsulation.ShadowDom,`
+
+- and define a `slot` in the component html:
+`<slot name="header"><p>Default text header</p></slot>`
+
+- Then in the web component instance we can overwrite the default content, for example for a slot named "header":
+
+``` html
+<text-form>
+  <span slot="header">My Custom Header</span>
+</text-form>
+```
+
+## Customize elements with `part`
+
+- to allow the web component consumer to customize the css, we should expose the allowed elements to be customized via the `part` declaration.
+NB. I just used the same name `header` here for `part` and `slot`, but you can use any name you want and they must not match.
+
+- `part` allow to style only that specific element, and doesn't allow to style his children.
+For that, take a look to `exportparts` and `::theme`.
+For example: <https://meowni.ca/posts/part-theme-explainer/>
+
+`<slot name="header" part="header"><p>Default text header</p></slot>`
+
+- and then customize the instances via css
+
+``` html
+<style>
+#ctrl::part(header) {
+  font-size: 32px;
+}
+</style>
+<body>
+  <text-form id="ctrl"></text-form>
+</body>
+```
+
 ## Testing the web-component in vanilla html
 
 - Build the web component project
@@ -101,3 +143,15 @@ Serve the index.html
 `ng build UsageAsAgComponent`
 
 `ng serve UsageAsAgComponent`
+
+## Using as Web component in a standard Angular application
+
+- Build the web component project
+- Include the web component javascript output in angular.json > scripts > main.js
+
+Then you can use the web component in two different ways:
+
+1- You can use the web component in Angular Template, but you need to use `ElementRef`, `addEventListener`, in addition of some "manual handling" to listen to events. Based on <https://stackoverflow.com/a/41610950/3512682>
+
+2- My preferred way is to use an `Angular directive` to wrap the web component and use it as a `Angular Form Control` and benefit of the native Angular framework functionality, as validators, ngModel, etc.
+Based on <https://coryrylan.com/blog/using-web-components-in-angular-forms>

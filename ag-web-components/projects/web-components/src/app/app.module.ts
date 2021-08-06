@@ -14,7 +14,7 @@ import { TextFormComponent } from './text-form/text-form.component';
 	],
 	providers: [],
 	bootstrap: [
-		TextFormComponent
+		// TextFormComponent
 	],
 	entryComponents: [
 		TextFormComponent

@@ -1,7 +1,10 @@
+<slot name="header" part="header text-style"><p>Default text header</p></slot>
+
 <textArea ngDefaultControl [formControl]="ctrl" rows="5" cols="60"></textArea>
-<span>
+<span part="text-style">
 	{{ ctrl.value.length }}
 </span>
-<span>
-	default: {{ defaultValue }}
+<span part="text-style">
+	initial value: {{ initialValue }}
 </span>
+<button (click)="onSave()" part="text-style">Save</button>
